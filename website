@@ -1,0 +1,48 @@
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin } from "lucide-react";
+
+export default function HomePage() {
+  const [language, setLanguage] = useState("es");
+
+  useEffect(() => {
+    const userLang = navigator.language || navigator.userLanguage;
+    if (userLang.startsWith("en")) {
+      setLanguage("en");
+    }
+  }, []);
+
+  const toggleLanguage = () => setLanguage(language === "es" ? "en" : "es");
+
+  return (
+    <div className="bg-white text-gray-800">
+      <header className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-6 shadow-md">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+          <div>
+            <h1 className="text-4xl font-bold">CatchPro México</h1>
+            <p className="text-lg">
+              {language === "es"
+                ? "Soluciones adhesivas profesionales para control de plagas"
+                : "Professional adhesive solutions for pest control"}
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row md:items-center gap-2 mt-4 md:mt-0">
+            <Button className="bg-white text-orange-600 hover:bg-yellow-100 font-semibold" onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}>
+              {language === "es" ? "Hazte distribuidor" : "Become a Distributor"}
+            </Button>
+            <Button onClick={toggleLanguage} className="bg-white text-orange-600 hover:bg-yellow-100 font-semibold">
+              {language === "es" ? "English" : "Español"}
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main content remains unchanged... */}
+
+    </div>
+  );
+}
